@@ -4,12 +4,17 @@
 #include <iostream>
 #include <cstring>
 
+
+//Encapsulation is a good practice cause it protect data u can change it by using the 
 class Contact
 {
     public:
+        void set_info();
         void get_info();
-        void show_info();
+        int  isempty();
     private:
+        int         empty;
+        int         index;
         std::string firstName;
         std::string lastName;
         std::string nickname;
