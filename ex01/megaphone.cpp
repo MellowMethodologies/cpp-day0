@@ -1,94 +1,119 @@
-#include <iostream>
-#include <cstring>
-#include <iomanip>
-#include "phone.hpp"
 
+#include "phoneBook.hpp"
 
-int Contact::isempty()
+int	PhoneBook::_nbContacts = 0;
+int	PhoneBook::_totalContacts = 0;
+
+int PhoneBook::get_nbContacts(void)
 {
-	return(empty);
+	return _nbContacts;
 }
 
-void Contact::get_info()
+int PhoneBook::get_totalContacts(void)
 {
-	std::cout << "First name: ";
-	std::getline(std::cin, firstName);
-	std::cout << "Last name: ";
-	std::getline(std::cin, lastName);
-	std::cout << "Nickname: ";
-	std::getline(std::cin, nickname);
-	std::cout << "Phone number: ";
-	std::getline(std::cin, phoneNumber);
-	std::cout << "Darkest secret: ";
-	std::getline(std::cin, darkestSecret);
-	if (!firstName.length() || !lastName.length() || !nickname.length() 
-		|| !phoneNumber.length() || !darkestSecret.length())
-	{
-		std::cout<< "error!\n";
-		get_info();
-	}
-	empty = 1;
+	return _totalContacts;
 }
 
-void Contact::show_info()
+void PhoneBook::modifyContact(std::string firstName, std::string lastName,
+	std::string nickName, std::string phoneNumber, std::string darkestSecret)
 {
-	std::cout<<std::setfill(' ')<<std::setw(10);
-	std::cout<< "index |";
-	std::cout<<std::setfill(' ')<<std::setw(10);
-	std::cout<<"firstname |";
-	std::cout<<std::setfill(' ')<<std::setw(10);
-	std::cout<<"lastname |";
-	std::cout<<std::setfill(' ')<<std::setw(10);
-	std::cout<<"nickname"<<std::endl;
-	std::cout<<std::setfill(' ')<<std::setw(10);
-	std::cout << index << "|";
-	std::cout<<std::setfill(' ')<<std::setw(10);
-	std::cout << firstName << "|";
-	std::cout<<std::setfill(' ')<<std::setw(10);
-	std::cout << lastName << "|";
-	std::cout<<std::setfill(' ')<<std::setw(10);
-	std::cout << nickname << std::endl;
+	this->tab_contact[_nbContacts].setFirstName(firstName);
+	this->tab_contact[_nbContacts].setLastName(lastName);
+	this->tab_contact[_nbContacts].setNickName(nickName);
+	this->tab_contact[_nbContacts].setPhoneNumber(phoneNumber);
+	this->tab_contact[_nbContacts].setDarkestSecret(darkestSecret);
+	_nbContacts++;
+	_nbContacts %= 8;
+	if (_totalContacts < 8)
+		_totalContacts++;
 }
 
-void    main_helper()
+void PhoneBook::get_list(void)
 {
-	phoneBook ph;
-	int i = 0;
-	int j = 0;
-	std::string choice;
-	while(ph.contact[j].isempty())
-		ph.contact[j++].show_info();
-	std::cout << "available commands : ADD, SEARCH AND EXIT\n";
-	std::cin >> choice;
-	if (!choice.compare("ADD"))
+	int i;
+
+	std::cout << "Index     |First Name|Last Name |NickName  |" << std::endl;
+
+	for (i = 0; i < _totalContacts; i++)
 	{
-		while(!ph.contact[i++].isempty());
-		ph.contact[i].get_info();
+		std::cout << std::setw(10) << std::setfill(' ') << std::right << i << "|";
+		this->tab_contact[i].display_short();
 	}
-	else if (!choice.compare("SEARCH"))
-	{
-		std::cout<<std::setfill(' ')<<std::setw(10);
-		std::cout<< "index |";
-		std::cout<<std::setfill(' ')<<std::setw(10);
-		std::cout<<"firstname |";
-		std::cout<<std::setfill(' ')<<std::setw(10);
-		std::cout<<"lastname |";
-		std::cout<<std::setfill(' ')<<std::setw(10);
-		std::cout<<"nickname"<<std::endl;
-	}
-	else if (!choice.compare("EXIT"))
-	{
-		std::cout << "goodBye!"<< std::endl;
-		exit(0);
-	}
-	main_helper();
 }
 
-int main()
+void PhoneBook::get_contact(int index)
 {
-	phoneBook ph;
-	std::cout << "*----------------------------*\n";
-	std::cout << "* Welcome to the Megaphone!! *\n";
-	std::cout << "*----------------------------*\n";
-	main_helper();
+	this->tab_contact[index].display();
+}
+
+std::string	get_set (std::string varName)
+{
+	std::string prompt;
+
+	while (1)
+	{
+		std::cout << "Enter " + varName + " : " <<std::endl;
+		std::getline(std::cin,prompt);
+		if (prompt.length() > 0)
+			break ;
+	}
+	return prompt;
+}
+
+int main (void)
+{
+	PhoneBook phonebook;
+	std::string prompt;
+	long int id;
+
+	while (42)
+	{
+		std::cout << "Enter ADD, SEARCH or EXIT : " << std::endl;
+		std::getline(std::cin, prompt);
+		if (prompt == "SEARCH")
+		{
+			phonebook.get_list();
+			if (phonebook.get_totalContacts() > 0)
+			{	
+				while (1)
+				{
+					std::cout << "Choose an id : " << std::endl;
+					std::getline(std::cin, prompt);
+					if (prompt.length() == 1 && (prompt[0] >= '0' && prompt[0] <= '7'))
+					{					
+						id = std::stoi(prompt);
+						if (id < phonebook.get_totalContacts())
+						{
+							phonebook.get_contact(id);
+							break ;
+						}
+					}
+				}
+			}
+		}
+		if (prompt == "ADD")
+		{
+			std::cout << "Add a contact" << std::endl;
+			std::string firstName;
+			std::string lastName;
+			std::string nickName;
+			std::string phoneNumber;
+			std::string darkestSecret;
+
+			firstName = get_set("First Name");
+			lastName = get_set("Last Name");
+			nickName = get_set("Nickame");
+			phoneNumber = get_set("Phone Number");
+			darkestSecret = get_set("Darkest Secret");
+
+			phonebook.modifyContact(firstName, lastName, nickName, phoneNumber, darkestSecret);
+
+		}
+		if (prompt == "EXIT")
+		{
+			return (0);
+		}
+	}
+
+	return (0);
 }
