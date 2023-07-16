@@ -66,7 +66,7 @@ int main (void)
 	std::string prompt;
 	long int id;
 
-	while (42)
+	while (1)
 	{
 		std::cout << "Enter ADD, SEARCH or EXIT : " << std::endl;
 		std::getline(std::cin, prompt);
@@ -80,8 +80,8 @@ int main (void)
 					std::cout << "Choose an id : " << std::endl;
 					std::getline(std::cin, prompt);
 					if (prompt.length() == 1 && (prompt[0] >= '0' && prompt[0] <= '7'))
-					{					
-						id = std::stoi(prompt);
+					{
+						id = atoi(prompt.c_str());
 						if (id < phonebook.get_totalContacts())
 						{
 							phonebook.get_contact(id);
