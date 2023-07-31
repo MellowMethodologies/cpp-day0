@@ -69,6 +69,7 @@ int main ()
 	short int id;
 
 	x = 0;
+
 	while (1)
 	{
 		std::cout << "Enter ADD, SEARCH or EXIT : " << std::endl;
@@ -84,7 +85,7 @@ int main ()
 					std::getline(std::cin, prompt);
 					x = prompt[0];
 					if (prompt.length() == 1 && (prompt[0] >= '0' && prompt[0] <= '7'))
-					{					
+					{			
 						id = x - 48;
 						if (id < phonebook.gettot())
 						{
