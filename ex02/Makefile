@@ -1,5 +1,5 @@
 CC= c++
-SRC= megaphone.cpp Contact.cpp
+SRC= tests.cpp 
 OBJ= megaphone
 FLAGS= -Wall -Wextra -Werror -std=c++98
 

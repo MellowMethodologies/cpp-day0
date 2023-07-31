@@ -1,43 +1,44 @@
-
+#include <stdio.h>
 #include "phoneBook.hpp"
 
-int	PhoneBook::_nbContacts = 0;
-int	PhoneBook::_totalContacts = 0;
+int	PhoneBook::contNumb = 0;
+int	PhoneBook::tot = 0;
 
-int PhoneBook::get_nbContacts(void)
+int PhoneBook::getcontNumb(void)
 {
-	return _nbContacts;
+	return contNumb;
 }
 
-int PhoneBook::get_totalContacts(void)
+int PhoneBook::gettot(void)
 {
-	return _totalContacts;
+	return tot;
 }
 
 void PhoneBook::modifyContact(std::string firstName, std::string lastName,
 	std::string nickName, std::string phoneNumber, std::string darkestSecret)
 {
-	this->tab_contact[_nbContacts].setFirstName(firstName);
-	this->tab_contact[_nbContacts].setLastName(lastName);
-	this->tab_contact[_nbContacts].setNickName(nickName);
-	this->tab_contact[_nbContacts].setPhoneNumber(phoneNumber);
-	this->tab_contact[_nbContacts].setDarkestSecret(darkestSecret);
-	_nbContacts++;
-	_nbContacts %= 8;
-	if (_totalContacts < 8)
-		_totalContacts++;
+	this->tab_contact[contNumb].setFirstName(firstName);
+	this->tab_contact[contNumb].setLastName(lastName);
+	this->tab_contact[contNumb].setNickName(nickName);
+	this->tab_contact[contNumb].setPhoneNumber(phoneNumber);
+	this->tab_contact[contNumb].setDarkestSecret(darkestSecret);
+	contNumb++;
+	contNumb %= 8;
+	if (tot < 8)
+		tot++;
 }
 
 void PhoneBook::get_list(void)
 {
 	int i;
 
+	i = 0;
 	std::cout << "Index     |First Name|Last Name |NickName  |" << std::endl;
-
-	for (i = 0; i < _totalContacts; i++)
+	while (i < tot)
 	{
 		std::cout << std::setw(10) << std::setfill(' ') << std::right << i << "|";
 		this->tab_contact[i].display_short();
+		i++;
 	}
 }
 
@@ -53,36 +54,39 @@ std::string	get_set (std::string varName)
 	while (1)
 	{
 		std::cout << "Enter " + varName + " : " <<std::endl;
-		std::getline(std::cin,prompt);
+		std::getline(std::cin, prompt);
 		if (prompt.length() > 0)
 			break ;
 	}
 	return prompt;
 }
 
-int main (void)
+int main ()
 {
 	PhoneBook phonebook;
 	std::string prompt;
-	long int id;
+	char x;
+	short int id;
 
-	while (42)
+	x = 0;
+	while (1)
 	{
 		std::cout << "Enter ADD, SEARCH or EXIT : " << std::endl;
 		std::getline(std::cin, prompt);
 		if (prompt == "SEARCH")
 		{
 			phonebook.get_list();
-			if (phonebook.get_totalContacts() > 0)
+			if (phonebook.gettot() > 0)
 			{	
 				while (1)
 				{
-					std::cout << "Choose an id : " << std::endl;
+					std::cout << "Choose an id(0 - 7) : " << std::endl;
 					std::getline(std::cin, prompt);
+					x = prompt[0];
 					if (prompt.length() == 1 && (prompt[0] >= '0' && prompt[0] <= '7'))
 					{					
-						id = std::stoi(prompt);
-						if (id < phonebook.get_totalContacts())
+						id = x - 48;
+						if (id < phonebook.gettot())
 						{
 							phonebook.get_contact(id);
 							break ;
@@ -91,7 +95,7 @@ int main (void)
 				}
 			}
 		}
-		if (prompt == "ADD")
+		else if (prompt == "ADD")
 		{
 			std::cout << "Add a contact" << std::endl;
 			std::string firstName;
@@ -109,7 +113,7 @@ int main (void)
 			phonebook.modifyContact(firstName, lastName, nickName, phoneNumber, darkestSecret);
 
 		}
-		if (prompt == "EXIT")
+		else if (prompt == "EXIT")
 		{
 			return (0);
 		}

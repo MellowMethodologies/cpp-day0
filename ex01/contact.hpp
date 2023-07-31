@@ -22,9 +22,9 @@ class Contact
 		void	display(void);
 
 	private:
-		std::string _firstName;
-		std::string _lastName;
-		std::string _nickName;
+		std::string firstName;
+		std::string lastName;
+		std::string nickName;
 		std::string _phoneNumber;
 		std::string _darkestSecret;
 };
