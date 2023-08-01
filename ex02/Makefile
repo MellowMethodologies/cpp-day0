@@ -1,14 +1,14 @@
 CC= c++
-SRC= tests.cpp 
-OBJ= megaphone
+SRC= tests.cpp Account.cpp
+NAME= Account
 FLAGS= -Wall -Wextra -Werror -std=c++98
 
-all: $(OBJ)
+all: $(NAME)
 
-$(OBJ): $(SRC)
-	$(CC) $(FLAGS) $(SRC) -o $(OBJ)
+$(NAME): $(SRC)
+	$(CC) $(FLAGS) $(SRC) -o $@
 
 clean:
-	rm $(OBJ)
+	rm $(Name)
 
 PHONY:all clean test
