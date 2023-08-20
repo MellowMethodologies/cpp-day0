@@ -1,9 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Contact.cpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/20 13:10:56 by sbadr             #+#    #+#             */
+/*   Updated: 2023/08/20 13:12:51 by sbadr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "contact.hpp"
 #include <iostream>
 #include <string>
 #include <iomanip>
 
 /*Setters*/
+
+Contact::Contact()
+{}
+
+Contact::~Contact()
+{}
+
 void	Contact::setFirstName(std::string firstName)
 {
 	this->firstName = firstName;

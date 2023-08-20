@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   contact.hpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/20 13:11:14 by sbadr             #+#    #+#             */
+/*   Updated: 2023/08/20 13:11:56 by sbadr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CONTACT_H
 # define CONTACT_H
 #include <iostream>
@@ -20,6 +32,9 @@ class Contact
 
 		void	display_short(void);
 		void	display(void);
+
+		Contact();
+		~Contact();
 
 	private:
 		std::string firstName;

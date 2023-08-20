@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   phoneBook.hpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/20 13:11:27 by sbadr             #+#    #+#             */
+/*   Updated: 2023/08/20 13:13:23 by sbadr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHONEBOOK_H
 # define PHONEBOOK_H
 
@@ -13,6 +25,9 @@ class PhoneBook
 		void		get_contact(int index);
 		void		get_list(void);
 		int			gettot(void);
+
+		PhoneBook();
+		~PhoneBook();
 
 	private:
 		Contact 	tab_contact[8];

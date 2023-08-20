@@ -9,6 +9,6 @@ $(NAME): $(SRC)
 	$(CC) $(FLAGS) $(SRC) -o $@
 
 clean:
-	rm $(Name)
+	rm $(NAME)
 
 PHONY:all clean test

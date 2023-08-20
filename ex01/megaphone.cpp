@@ -1,8 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/20 13:11:23 by sbadr             #+#    #+#             */
+/*   Updated: 2023/08/20 14:25:28 by sbadr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include "phoneBook.hpp"
 
 int	PhoneBook::contNumb = 0;
 int	PhoneBook::tot = 0;
+
+PhoneBook::PhoneBook()
+{}
+
+PhoneBook::~PhoneBook()
+{}
 
 int PhoneBook::getcontNumb(void)
 {
@@ -36,7 +54,7 @@ void PhoneBook::get_list(void)
 	std::cout << "Index     |First Name|Last Name |NickName  |" << std::endl;
 	while (i < tot)
 	{
-		std::cout << std::setw(10) << std::setfill(' ') << std::right << i << "|";
+		std::cout << std::setw(10) << std::setfill(' ') << std::right<< i << "|";
 		this->tab_contact[i].display_short();
 		i++;
 	}
@@ -55,6 +73,11 @@ std::string	get_set (std::string varName)
 	{
 		std::cout << "Enter " + varName + " : " <<std::endl;
 		std::getline(std::cin, prompt);
+		if (std::cin.eof())
+		{
+		    std::cout << "End of input reached. Exiting..." << std::endl;
+		    exit(0);
+		}
 		if (prompt.length() > 0)
 			break ;
 	}
@@ -73,7 +96,14 @@ int main ()
 	while (1)
 	{
 		std::cout << "Enter ADD, SEARCH or EXIT : " << std::endl;
-		std::getline(std::cin, prompt);
+		if (!std::getline(std::cin, prompt))
+		{
+			if (std::cin.eof())
+			{
+			    std::cout << "End of input reached. Exiting..." << std::endl;
+			    break;
+			}
+		}
 		if (prompt == "SEARCH")
 		{
 			phonebook.get_list();
@@ -83,6 +113,11 @@ int main ()
 				{
 					std::cout << "Choose an id(0 - 7) : " << std::endl;
 					std::getline(std::cin, prompt);
+					if (std::cin.eof())
+					{
+					    std::cout << "End of input reached. Exiting..." << std::endl;
+					    exit(0);
+					}
 					x = prompt[0];
 					if (prompt.length() == 1 && (prompt[0] >= '0' && prompt[0] <= '7'))
 					{			
